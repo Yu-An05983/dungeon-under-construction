@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkmo8w2kdaxs0"]
+
+[ext_resource type="Texture2D" uid="uid://6smhsjwy1nyx" path="res://icon.svg" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://desq3t7ol8ylt" path="res://player.tscn" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://chumhqvd02kqf" path="res://camera_2d.gd" id="3_h2yge"]
+
+[node name="Main" type="Node"]
+
+[node name="floor(to be replaced)" type="Sprite2D" parent="."]
+position = Vector2(360, 363)
+scale = Vector2(5.64844, 5.64844)
+texture = ExtResource("1_ig7tw")
+
+[node name="Player" parent="." instance=ExtResource("2_0xm2m")]
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(0.3, 0.3)
+script = ExtResource("3_h2yge")
+
+[node name="GUI" type="MarginContainer" parent="."]
+offset_right = 1151.0
+offset_bottom = 646.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI"]
+layout_mode = 2
+alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="GUI/HBoxContainer"]
+position = Vector2(316, 253)
+texture = ExtResource("1_ig7tw")
