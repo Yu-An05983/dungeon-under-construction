@@ -1,30 +1,81 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkmo8w2kdaxs0"]
+[gd_scene load_steps=7 format=3 uid="uid://cpna3aw2gujtj"]
 
-[ext_resource type="Texture2D" uid="uid://6smhsjwy1nyx" path="res://icon.svg" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://desq3t7ol8ylt" path="res://player.tscn" id="2_0xm2m"]
-[ext_resource type="Script" uid="uid://chumhqvd02kqf" path="res://camera_2d.gd" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://2sdi7rhr14fh" path="res://Conveyors/generator.tscn" id="5_1a0pq"]
+[ext_resource type="PackedScene" uid="uid://d3r5ri72l82h6" path="res://Conveyors/trash.tscn" id="5_1poeg"]
+[ext_resource type="PackedScene" uid="uid://ca6vcitmain1q" path="res://Conveyors/splitter.tscn" id="5_yy37v"]
+[ext_resource type="PackedScene" uid="uid://ddh6l04cad4tk" path="res://Building/builder.tscn" id="6_sj645"]
+[ext_resource type="PackedScene" uid="uid://cfwfejmwtkwmg" path="res://Conveyors/belt.tscn" id="7_mtc1u"]
 
-[node name="Main" type="Node"]
+[sub_resource type="GDScript" id="GDScript_lquwl"]
+script/source = "extends Node2D
 
-[node name="floor(to be replaced)" type="Sprite2D" parent="."]
-position = Vector2(360, 363)
-scale = Vector2(5.64844, 5.64844)
-texture = ExtResource("1_ig7tw")
+@export var save_scene = \"\"
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
 
-[node name="Player" parent="." instance=ExtResource("2_0xm2m")]
+func load_from_save_data(save_data):
+	var nodes = save_data[\"nodes\"]
+	
+	for node in nodes:
+		var loaded_scene = load(node[\"path\"])
+		var scene = loaded_scene.instantiate()
+		add_child(scene)
+		scene.load_from_save_data(node)
+		
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(0.3, 0.3)
-script = ExtResource("3_h2yge")
+func get_save_data():
+	var data = {}
+	var nodes = []
+	for child in get_children():
+		nodes.append(child.get_save_data())
+	data[\"nodes\"] = nodes
+	return data
 
-[node name="GUI" type="MarginContainer" parent="."]
-offset_right = 1151.0
-offset_bottom = 646.0
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI"]
-layout_mode = 2
-alignment = 1
+[node name="Main" type="Node2D"]
+texture_filter = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="GUI/HBoxContainer"]
-position = Vector2(316, 253)
-texture = ExtResource("1_ig7tw")
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="Tiles" type="Node2D" parent="."]
+script = SubResource("GDScript_lquwl")
+
+[node name="Belt" parent="Tiles" instance=ExtResource("7_mtc1u")]
+position = Vector2(64, 0)
+
+[node name="Belt2" parent="Tiles" instance=ExtResource("7_mtc1u")]
+position = Vector2(32, 0)
+
+[node name="Belt3" parent="Tiles" instance=ExtResource("7_mtc1u")]
+position = Vector2(0, 32)
+directions = Array[int]([3])
+
+[node name="Belt5" parent="Tiles" instance=ExtResource("7_mtc1u")]
+position = Vector2(-32, 0)
+
+[node name="Belt4" parent="Tiles" instance=ExtResource("7_mtc1u")]
+position = Vector2(0, -32)
+directions = Array[int]([1])
+
+[node name="Splitter" parent="Tiles" instance=ExtResource("5_yy37v")]
+directions = Array[int]([0, 1, 3])
+
+[node name="Generator" parent="Tiles" instance=ExtResource("5_1a0pq")]
+position = Vector2(96, 0)
+
+[node name="Trash" parent="Tiles" instance=ExtResource("5_1poeg")]
+position = Vector2(0, 64)
+
+[node name="Trash2" parent="Tiles" instance=ExtResource("5_1poeg")]
+position = Vector2(0, -64)
+
+[node name="Trash3" parent="Tiles" instance=ExtResource("5_1poeg")]
+position = Vector2(-64, 0)
+
+[node name="Builder" parent="." instance=ExtResource("6_sj645")]
