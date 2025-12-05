@@ -12,10 +12,3 @@ func can_place(location: Vector2):
 
 func place(location: Vector2):
 	pass
-
-
-
-
-
-
-
