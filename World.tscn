@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://qfkt25nhf3dw"]
+[gd_scene load_steps=5 format=3 uid="uid://qfkt25nhf3dw"]
 
 [ext_resource type="Texture2D" uid="uid://6smhsjwy1nyx" path="res://icon.svg" id="1_bcbcq"]
 [ext_resource type="PackedScene" uid="uid://desq3t7ol8ylt" path="res://player.tscn" id="2_js7pq"]
 [ext_resource type="Script" uid="uid://chumhqvd02kqf" path="res://camera_2d.gd" id="3_eu7l1"]
+[ext_resource type="PackedScene" uid="uid://dodi3l5gfwan0" path="res://ui.tscn" id="4_js7pq"]
 
 [node name="Main" type="Node"]
 
@@ -17,14 +18,4 @@ texture = ExtResource("1_bcbcq")
 zoom = Vector2(0.3, 0.3)
 script = ExtResource("3_eu7l1")
 
-[node name="GUI" type="MarginContainer" parent="."]
-offset_right = 1151.0
-offset_bottom = 646.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI"]
-layout_mode = 2
-alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="GUI/HBoxContainer"]
-position = Vector2(316, 253)
-texture = ExtResource("1_bcbcq")
+[node name="UI" parent="." instance=ExtResource("4_js7pq")]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpna3aw2gujtj"]
+[gd_scene load_steps=8 format=3 uid="uid://cpna3aw2gujtj"]
 
 [ext_resource type="PackedScene" uid="uid://2sdi7rhr14fh" path="res://Conveyors/generator.tscn" id="5_1a0pq"]
 [ext_resource type="PackedScene" uid="uid://d3r5ri72l82h6" path="res://Conveyors/trash.tscn" id="5_1poeg"]
 [ext_resource type="PackedScene" uid="uid://ca6vcitmain1q" path="res://Conveyors/splitter.tscn" id="5_yy37v"]
-[ext_resource type="PackedScene" uid="uid://ddh6l04cad4tk" path="res://Building/builder.tscn" id="6_sj645"]
+[ext_resource type="Texture2D" uid="uid://byaa32kn30t70" path="res://Art/conveyors_1.png" id="6_7mycd"]
+[ext_resource type="Script" uid="uid://ddfha0xv88brh" path="res://conveyor_btn.gd" id="6_272bh"]
 [ext_resource type="PackedScene" uid="uid://cfwfejmwtkwmg" path="res://Conveyors/belt.tscn" id="7_mtc1u"]
 
 [sub_resource type="GDScript" id="GDScript_lquwl"]
@@ -35,6 +36,10 @@ func get_save_data():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func _on_conveyor_btn_pressed() -> void:
+	pass # Replace with function body.
 "
 
 [node name="Main" type="Node2D"]
@@ -78,4 +83,43 @@ position = Vector2(0, -64)
 [node name="Trash3" parent="Tiles" instance=ExtResource("5_1poeg")]
 position = Vector2(-64, 0)
 
-[node name="Builder" parent="." instance=ExtResource("6_sj645")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Selection" type="Panel" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -576.0
+offset_top = -128.0
+offset_right = 576.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Selection"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -64.0
+offset_right = 1152.0
+offset_bottom = 64.0
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Conveyor_btn" type="Button" parent="CanvasLayer/Selection/HBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+script = ExtResource("6_272bh")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Selection/HBoxContainer/Conveyor_btn"]
+position = Vector2(64, 64)
+scale = Vector2(3, 3)
+texture = ExtResource("6_7mycd")
+hframes = 5
+vframes = 3
+
+[connection signal="pressed" from="CanvasLayer/Selection/HBoxContainer/Conveyor_btn" to="CanvasLayer/Selection/HBoxContainer/Conveyor_btn" method="_on_pressed"]
