@@ -1,5 +1,23 @@
+<<<<<<< HEAD
 [gd_scene load_steps=5 format=3 uid="uid://dkmo8w2kdaxs0"]
 
+=======
+<<<<<<< HEAD
+[gd_scene load_steps=8 format=3 uid="uid://cpna3aw2gujtj"]
+
+[ext_resource type="PackedScene" uid="uid://2sdi7rhr14fh" path="res://Conveyors/generator.tscn" id="5_1a0pq"]
+[ext_resource type="PackedScene" uid="uid://d3r5ri72l82h6" path="res://Conveyors/trash.tscn" id="5_1poeg"]
+[ext_resource type="PackedScene" uid="uid://ca6vcitmain1q" path="res://Conveyors/splitter.tscn" id="5_yy37v"]
+[ext_resource type="Texture2D" uid="uid://byaa32kn30t70" path="res://Art/conveyors_1.png" id="6_7mycd"]
+[ext_resource type="Script" uid="uid://ddfha0xv88brh" path="res://conveyor_btn.gd" id="6_272bh"]
+[ext_resource type="PackedScene" uid="uid://cfwfejmwtkwmg" path="res://Conveyors/belt.tscn" id="7_mtc1u"]
+
+[sub_resource type="GDScript" id="GDScript_lquwl"]
+script/source = "extends Node2D
+=======
+[gd_scene load_steps=5 format=3 uid="uid://dkmo8w2kdaxs0"]
+
+>>>>>>> 0e244fa
 [ext_resource type="Script" uid="uid://d4aqbsvnp1yqg" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://6smhsjwy1nyx" path="res://icon.svg" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://desq3t7ol8ylt" path="res://player.tscn" id="2_0xm2m"]
@@ -7,18 +25,35 @@
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_1bvp3")
+<<<<<<< HEAD
+=======
+>>>>>>> 4f9051a (Local changes to main files)
+>>>>>>> 0e244fa
 
-[node name="floor(to be replaced)" type="Sprite2D" parent="."]
-position = Vector2(360, 363)
-scale = Vector2(5.64844, 5.64844)
-texture = ExtResource("1_ig7tw")
+@export var save_scene = \"\"
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
 
-[node name="Player" parent="." instance=ExtResource("2_0xm2m")]
+func load_from_save_data(save_data):
+	var nodes = save_data[\"nodes\"]
+	
+	for node in nodes:
+		var loaded_scene = load(node[\"path\"])
+		var scene = loaded_scene.instantiate()
+		add_child(scene)
+		scene.load_from_save_data(node)
+		
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(0.3, 0.3)
-script = ExtResource("3_h2yge")
+func get_save_data():
+	var data = {}
+	var nodes = []
+	for child in get_children():
+		nodes.append(child.get_save_data())
+	data[\"nodes\"] = nodes
+	return data
 
+<<<<<<< HEAD
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="GUI" type="MarginContainer" parent="UI"]
@@ -32,8 +67,119 @@ grow_vertical = 2
 layout_mode = 2
 alignment = 2
 
+=======
+<<<<<<< HEAD
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_conveyor_btn_pressed() -> void:
+	pass # Replace with function body.
+"
+
+[node name="Main" type="Node2D"]
+texture_filter = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="Tiles" type="Node2D" parent="."]
+script = SubResource("GDScript_lquwl")
+
+[node name="Belt" parent="Tiles" instance=ExtResource("7_mtc1u")]
+position = Vector2(64, 0)
+
+[node name="Belt2" parent="Tiles" instance=ExtResource("7_mtc1u")]
+position = Vector2(32, 0)
+
+[node name="Belt3" parent="Tiles" instance=ExtResource("7_mtc1u")]
+position = Vector2(0, 32)
+directions = Array[int]([3])
+
+[node name="Belt5" parent="Tiles" instance=ExtResource("7_mtc1u")]
+position = Vector2(-32, 0)
+
+[node name="Belt4" parent="Tiles" instance=ExtResource("7_mtc1u")]
+position = Vector2(0, -32)
+directions = Array[int]([1])
+
+[node name="Splitter" parent="Tiles" instance=ExtResource("5_yy37v")]
+directions = Array[int]([0, 1, 3])
+
+[node name="Generator" parent="Tiles" instance=ExtResource("5_1a0pq")]
+position = Vector2(96, 0)
+
+[node name="Trash" parent="Tiles" instance=ExtResource("5_1poeg")]
+position = Vector2(0, 64)
+
+[node name="Trash2" parent="Tiles" instance=ExtResource("5_1poeg")]
+position = Vector2(0, -64)
+
+[node name="Trash3" parent="Tiles" instance=ExtResource("5_1poeg")]
+position = Vector2(-64, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Selection" type="Panel" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -576.0
+offset_top = -128.0
+offset_right = 576.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Selection"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -64.0
+offset_right = 1152.0
+offset_bottom = 64.0
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Conveyor_btn" type="Button" parent="CanvasLayer/Selection/HBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+script = ExtResource("6_272bh")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Selection/HBoxContainer/Conveyor_btn"]
+position = Vector2(64, 64)
+scale = Vector2(3, 3)
+texture = ExtResource("6_7mycd")
+hframes = 5
+vframes = 3
+
+[connection signal="pressed" from="CanvasLayer/Selection/HBoxContainer/Conveyor_btn" to="CanvasLayer/Selection/HBoxContainer/Conveyor_btn" method="_on_pressed"]
+=======
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="GUI" type="MarginContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GUI"]
+layout_mode = 2
+alignment = 2
+
+>>>>>>> 0e244fa
 [node name="Button" type="Button" parent="UI/GUI/HBoxContainer"]
 layout_mode = 2
 icon = ExtResource("1_ig7tw")
 
 [connection signal="pressed" from="UI/GUI/HBoxContainer/Button" to="." method="_on_button_pressed"]
+<<<<<<< HEAD
+=======
+>>>>>>> 4f9051a (Local changes to main files)
+>>>>>>> 0e244fa
