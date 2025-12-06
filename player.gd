@@ -11,6 +11,7 @@ func get_input():
 	return input.normalized()
 
 func _process(delta):
+	look_at(get_global_mouse_position())
 	var playerInput = get_input()
 	
 	velocity = lerp(velocity, playerInput * SPEED, delta * ACCEL)
