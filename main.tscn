@@ -1,34 +1,16 @@
-<<<<<<< HEAD
-[gd_scene load_steps=5 format=3 uid="uid://dkmo8w2kdaxs0"]
-
-=======
-<<<<<<< HEAD
-[gd_scene load_steps=8 format=3 uid="uid://cpna3aw2gujtj"]
+[gd_scene load_steps=10 format=3 uid="uid://cpna3aw2gujtj"]
 
 [ext_resource type="PackedScene" uid="uid://2sdi7rhr14fh" path="res://Conveyors/generator.tscn" id="5_1a0pq"]
 [ext_resource type="PackedScene" uid="uid://d3r5ri72l82h6" path="res://Conveyors/trash.tscn" id="5_1poeg"]
 [ext_resource type="PackedScene" uid="uid://ca6vcitmain1q" path="res://Conveyors/splitter.tscn" id="5_yy37v"]
 [ext_resource type="Texture2D" uid="uid://byaa32kn30t70" path="res://Art/conveyors_1.png" id="6_7mycd"]
 [ext_resource type="Script" uid="uid://ddfha0xv88brh" path="res://conveyor_btn.gd" id="6_272bh"]
+[ext_resource type="PackedScene" uid="uid://desq3t7ol8ylt" path="res://player.tscn" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://cfwfejmwtkwmg" path="res://Conveyors/belt.tscn" id="7_mtc1u"]
+[ext_resource type="Script" uid="uid://chumhqvd02kqf" path="res://camera_2d.gd" id="8_5vw27"]
 
 [sub_resource type="GDScript" id="GDScript_lquwl"]
 script/source = "extends Node2D
-=======
-[gd_scene load_steps=5 format=3 uid="uid://dkmo8w2kdaxs0"]
-
->>>>>>> 0e244fa
-[ext_resource type="Script" uid="uid://d4aqbsvnp1yqg" path="res://main.gd" id="1_1bvp3"]
-[ext_resource type="Texture2D" uid="uid://6smhsjwy1nyx" path="res://icon.svg" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://desq3t7ol8ylt" path="res://player.tscn" id="2_0xm2m"]
-[ext_resource type="Script" uid="uid://chumhqvd02kqf" path="res://camera_2d.gd" id="3_h2yge"]
-
-[node name="Main" type="Node2D"]
-script = ExtResource("1_1bvp3")
-<<<<<<< HEAD
-=======
->>>>>>> 4f9051a (Local changes to main files)
->>>>>>> 0e244fa
 
 @export var save_scene = \"\"
 # Called when the node enters the scene tree for the first time.
@@ -53,22 +35,6 @@ func get_save_data():
 	data[\"nodes\"] = nodes
 	return data
 
-<<<<<<< HEAD
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="GUI" type="MarginContainer" parent="UI"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GUI"]
-layout_mode = 2
-alignment = 2
-
-=======
-<<<<<<< HEAD
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
@@ -80,9 +46,6 @@ func _on_conveyor_btn_pressed() -> void:
 
 [node name="Main" type="Node2D"]
 texture_filter = 1
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
 
 [node name="Tiles" type="Node2D" parent="."]
 script = SubResource("GDScript_lquwl")
@@ -158,28 +121,10 @@ texture = ExtResource("6_7mycd")
 hframes = 5
 vframes = 3
 
+[node name="Player" parent="." instance=ExtResource("7_272bh")]
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(3, 3)
+script = ExtResource("8_5vw27")
+
 [connection signal="pressed" from="CanvasLayer/Selection/HBoxContainer/Conveyor_btn" to="CanvasLayer/Selection/HBoxContainer/Conveyor_btn" method="_on_pressed"]
-=======
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="GUI" type="MarginContainer" parent="UI"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GUI"]
-layout_mode = 2
-alignment = 2
-
->>>>>>> 0e244fa
-[node name="Button" type="Button" parent="UI/GUI/HBoxContainer"]
-layout_mode = 2
-icon = ExtResource("1_ig7tw")
-
-[connection signal="pressed" from="UI/GUI/HBoxContainer/Button" to="." method="_on_button_pressed"]
-<<<<<<< HEAD
-=======
->>>>>>> 4f9051a (Local changes to main files)
->>>>>>> 0e244fa
