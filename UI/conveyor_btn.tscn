@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmpd10uiswhkj"]
+
+[ext_resource type="Script" uid="uid://ddfha0xv88brh" path="res://UI/selection_btn.gd" id="1_ax3ql"]
+[ext_resource type="PackedScene" uid="uid://plarxj2333q7" path="res://Building/buildable_conveyor.tscn" id="2_n6n3e"]
+[ext_resource type="Texture2D" uid="uid://byaa32kn30t70" path="res://Art/conveyors_1.png" id="3_x1b3f"]
+
+[node name="Conveyor_btn" type="Button"]
+custom_minimum_size = Vector2(128, 128)
+script = ExtResource("1_ax3ql")
+to_build = ExtResource("2_n6n3e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(64, 64)
+scale = Vector2(3, 3)
+texture = ExtResource("3_x1b3f")
+hframes = 5
+vframes = 3
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

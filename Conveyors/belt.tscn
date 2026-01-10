@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cfwfejmwtkwmg"]
+[gd_scene load_steps=8 format=3 uid="uid://cfwfejmwtkwmg"]
 
 [ext_resource type="PackedScene" uid="uid://ct44m1aobfnpe" path="res://Conveyors/Components/Detectors/conveyor_detectors.tscn" id="1_4004i"]
 [ext_resource type="Script" uid="uid://cuh23u888ewjp" path="res://Conveyors/belt.gd" id="1_fqewh"]
@@ -10,11 +10,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_luv85"]
 size = Vector2(16, 16)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s75kh"]
-size = Vector2(16, 16)
-
 [node name="Belt" type="Node2D"]
 z_index = -1
+scale = Vector2(2, 2)
 script = ExtResource("1_fqewh")
 directions = Array[int]([0])
 
@@ -28,9 +26,6 @@ directions = Array[int]([0])
 shape = SubResource("RectangleShape2D_luv85")
 
 [node name="DirectionController" parent="." instance=ExtResource("5_f6dtg")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DirectionController"]
-shape = SubResource("RectangleShape2D_s75kh")
 
 [node name="FromDirectionController" parent="." instance=ExtResource("6_d7gd1")]
 

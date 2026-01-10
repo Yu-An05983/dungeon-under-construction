@@ -1,6 +1,9 @@
 extends Sprite2D
+var has_sheet = true
 
 func set_sprite_frame(to: Enums.Direction, from: Enums.Direction):
+	if has_sheet == false:
+		$".".rotation_degrees += 90
 	match to:
 		Enums.Direction.Left:
 			match from:

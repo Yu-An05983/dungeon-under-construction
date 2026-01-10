@@ -1,13 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://cpna3aw2gujtj"]
+[gd_scene load_steps=15 format=3 uid="uid://cpna3aw2gujtj"]
 
 [ext_resource type="PackedScene" uid="uid://2sdi7rhr14fh" path="res://Conveyors/generator.tscn" id="5_1a0pq"]
 [ext_resource type="PackedScene" uid="uid://d3r5ri72l82h6" path="res://Conveyors/trash.tscn" id="5_1poeg"]
 [ext_resource type="PackedScene" uid="uid://ca6vcitmain1q" path="res://Conveyors/splitter.tscn" id="5_yy37v"]
 [ext_resource type="Texture2D" uid="uid://byaa32kn30t70" path="res://Art/conveyors_1.png" id="6_7mycd"]
-[ext_resource type="Script" uid="uid://ddfha0xv88brh" path="res://conveyor_btn.gd" id="6_272bh"]
+[ext_resource type="Script" uid="uid://ddfha0xv88brh" path="res://UI/selection_btn.gd" id="6_272bh"]
+[ext_resource type="PackedScene" uid="uid://plarxj2333q7" path="res://Building/buildable_conveyor.tscn" id="6_kek77"]
 [ext_resource type="PackedScene" uid="uid://desq3t7ol8ylt" path="res://player.tscn" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://cfwfejmwtkwmg" path="res://Conveyors/belt.tscn" id="7_mtc1u"]
+[ext_resource type="PackedScene" uid="uid://c8w1w0squsynp" path="res://Conveyors/buildablegenerator.tscn" id="8_4c57u"]
 [ext_resource type="Script" uid="uid://chumhqvd02kqf" path="res://camera_2d.gd" id="8_5vw27"]
+[ext_resource type="Texture2D" uid="uid://bl8bhfger7ntd" path="res://Art/item give.png" id="9_efxa6"]
+[ext_resource type="Texture2D" uid="uid://bj1k3b5s13fd3" path="res://Art/item delete.png" id="10_dg77c"]
+[ext_resource type="PackedScene" uid="uid://uqjnxa32vr20" path="res://Conveyors/buildabletrash.tscn" id="10_ycdy4"]
 
 [sub_resource type="GDScript" id="GDScript_lquwl"]
 script/source = "extends Node2D
@@ -51,41 +56,41 @@ texture_filter = 1
 script = SubResource("GDScript_lquwl")
 
 [node name="Belt" parent="Tiles" instance=ExtResource("7_mtc1u")]
-position = Vector2(64, 0)
+position = Vector2(128, 0)
 
 [node name="Belt2" parent="Tiles" instance=ExtResource("7_mtc1u")]
-position = Vector2(32, 0)
+position = Vector2(64, 0)
 
 [node name="Belt3" parent="Tiles" instance=ExtResource("7_mtc1u")]
-position = Vector2(0, 32)
+position = Vector2(0, 64)
 directions = Array[int]([3])
 
 [node name="Belt5" parent="Tiles" instance=ExtResource("7_mtc1u")]
-position = Vector2(-32, 0)
+position = Vector2(-64, 0)
 
 [node name="Belt4" parent="Tiles" instance=ExtResource("7_mtc1u")]
-position = Vector2(0, -32)
+position = Vector2(0, -64)
 directions = Array[int]([1])
 
 [node name="Splitter" parent="Tiles" instance=ExtResource("5_yy37v")]
 directions = Array[int]([0, 1, 3])
 
 [node name="Generator" parent="Tiles" instance=ExtResource("5_1a0pq")]
-position = Vector2(96, 0)
+position = Vector2(192, 0)
 
 [node name="Trash" parent="Tiles" instance=ExtResource("5_1poeg")]
-position = Vector2(0, 64)
+position = Vector2(0, 128)
 
 [node name="Trash2" parent="Tiles" instance=ExtResource("5_1poeg")]
-position = Vector2(0, -64)
+position = Vector2(0, -128)
 
 [node name="Trash3" parent="Tiles" instance=ExtResource("5_1poeg")]
-position = Vector2(-64, 0)
+position = Vector2(-128, 0)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="Selection" type="Panel" parent="CanvasLayer"]
+[node name="Selection" type="Panel" parent="UI"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -97,7 +102,7 @@ offset_right = 576.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Selection"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Selection"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 1
 anchors_preset = 4
@@ -109,22 +114,49 @@ offset_bottom = 64.0
 grow_vertical = 2
 theme_override_constants/separation = 15
 
-[node name="Conveyor_btn" type="Button" parent="CanvasLayer/Selection/HBoxContainer"]
+[node name="Selection_btn" type="Button" parent="UI/Selection/HBoxContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 script = ExtResource("6_272bh")
+to_build = ExtResource("6_kek77")
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Selection/HBoxContainer/Conveyor_btn"]
+[node name="Sprite2D" type="Sprite2D" parent="UI/Selection/HBoxContainer/Selection_btn"]
 position = Vector2(64, 64)
 scale = Vector2(3, 3)
 texture = ExtResource("6_7mycd")
 hframes = 5
 vframes = 3
 
+[node name="Selection_btn2" type="Button" parent="UI/Selection/HBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+script = ExtResource("6_272bh")
+to_build = ExtResource("8_4c57u")
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/Selection/HBoxContainer/Selection_btn2"]
+position = Vector2(64, 64)
+scale = Vector2(3, 3)
+texture = ExtResource("9_efxa6")
+
+[node name="Selection_btn3" type="Button" parent="UI/Selection/HBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+script = ExtResource("6_272bh")
+to_build = ExtResource("10_ycdy4")
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/Selection/HBoxContainer/Selection_btn3"]
+position = Vector2(64, 64)
+scale = Vector2(3, 3)
+texture = ExtResource("10_dg77c")
+
 [node name="Player" parent="." instance=ExtResource("7_272bh")]
+z_index = 9
+position = Vector2(166, -230)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(3, 3)
 script = ExtResource("8_5vw27")
 
-[connection signal="pressed" from="CanvasLayer/Selection/HBoxContainer/Conveyor_btn" to="CanvasLayer/Selection/HBoxContainer/Conveyor_btn" method="_on_pressed"]
+[connection signal="pressed" from="UI/Selection/HBoxContainer/Selection_btn" to="UI/Selection/HBoxContainer/Selection_btn" method="_on_pressed"]
+[connection signal="pressed" from="UI/Selection/HBoxContainer/Selection_btn2" to="UI/Selection/HBoxContainer/Selection_btn2" method="_on_pressed"]
+[connection signal="pressed" from="UI/Selection/HBoxContainer/Selection_btn3" to="UI/Selection/HBoxContainer/Selection_btn3" method="_on_pressed"]
