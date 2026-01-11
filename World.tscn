@@ -10,10 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://d3r5ri72l82h6" path="res://Conveyors/trash.tscn" id="8_kva58"]
 [ext_resource type="PackedScene" uid="uid://plarxj2333q7" path="res://Building/buildable_conveyor.tscn" id="9_b2ar6"]
 [ext_resource type="Texture2D" uid="uid://byaa32kn30t70" path="res://Art/conveyors_1.png" id="10_ee7l0"]
-[ext_resource type="PackedScene" uid="uid://c8w1w0squsynp" path="res://Conveyors/buildablegenerator.tscn" id="11_gn8l5"]
+[ext_resource type="PackedScene" path="res://Conveyors/buildablegenerator.tscn" id="11_gn8l5"]
 [ext_resource type="Texture2D" uid="uid://bl8bhfger7ntd" path="res://Art/item give.png" id="12_6w02q"]
 [ext_resource type="Texture2D" uid="uid://bj1k3b5s13fd3" path="res://Art/item delete.png" id="13_b2ar6"]
-[ext_resource type="PackedScene" uid="uid://uqjnxa32vr20" path="res://Conveyors/buildabletrash.tscn" id="13_ee7l0"]
+[ext_resource type="PackedScene" path="res://Conveyors/buildabletrash.tscn" id="13_ee7l0"]
 [ext_resource type="Texture2D" uid="uid://kop1pknflp1b" path="res://Art/gold.png" id="15_gn8l5"]
 [ext_resource type="FontFile" uid="uid://dnwe30ygvd7s7" path="res://xolonium/xolonium-fonts-4.1/otf/Xolonium-Regular.otf" id="16_6w02q"]
 
