@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsw6251gpitv2"
-path="res://.godot/imported/Bones and flesh.png-54a9e24b965b406c506c5887c919fc02.ctex"
+uid="uid://cfs61pjpxqua0"
+path="res://.godot/imported/hex alloy.png-71afef7ba4432339c9a0aa509ed50a32.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Bones and flesh.png"
-dest_files=["res://.godot/imported/Bones and flesh.png-54a9e24b965b406c506c5887c919fc02.ctex"]
+source_file="res://Art/Resources/hex alloy.png"
+dest_files=["res://.godot/imported/hex alloy.png-71afef7ba4432339c9a0aa509ed50a32.ctex"]
 
 [params]
 

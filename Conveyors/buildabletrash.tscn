@@ -1,9 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://uqjnxa32vr20"]
+[gd_scene load_steps=5 format=3 uid="uid://uqjnxa32vr20"]
 
 [ext_resource type="Script" uid="uid://cf18jbnsyeka0" path="res://Conveyors/buildabletrash.gd" id="1_mqtj1"]
 [ext_resource type="PackedScene" uid="uid://des4s18nx8jee" path="res://Conveyors/Components/Inventory/conveyor_inventory.tscn" id="2_7efhj"]
-[ext_resource type="PackedScene" uid="uid://cltpvpyouk2u0" path="res://Conveyors/Components/Controller/conveyor_sprite_controller.tscn" id="3_7efhj"]
-[ext_resource type="Texture2D" uid="uid://bj1k3b5s13fd3" path="res://Art/item delete.png" id="3_ys7wv"]
 [ext_resource type="PackedScene" uid="uid://bu00ntiiddy1k" path="res://Conveyors/Components/Controller/direction_controller.tscn" id="5_ys7wv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lanr3"]
@@ -17,11 +15,6 @@ script = ExtResource("1_mqtj1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ConveyorInventory"]
 shape = SubResource("RectangleShape2D_lanr3")
-
-[node name="ConveyorSpriteController" parent="." instance=ExtResource("3_7efhj")]
-texture = ExtResource("3_ys7wv")
-hframes = 1
-vframes = 1
 
 [node name="DirectionController" parent="." instance=ExtResource("5_ys7wv")]
 position = Vector2(742.502, 113.832)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfs61pjpxqua0"
-path="res://.godot/imported/hex alloy.png-0dde15d548e7fffa68ae6d6dd8b15442.ctex"
+uid="uid://dds55o2ponwp0"
+path="res://.godot/imported/ignium.png-6ca8a006663ee4138f6a968c40091473.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/hex alloy.png"
-dest_files=["res://.godot/imported/hex alloy.png-0dde15d548e7fffa68ae6d6dd8b15442.ctex"]
+source_file="res://Art/Resources/ignium.png"
+dest_files=["res://.godot/imported/ignium.png-6ca8a006663ee4138f6a968c40091473.ctex"]
 
 [params]
 

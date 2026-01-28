@@ -19,23 +19,22 @@ func rotate_clockwise():
 func rotate_counter():
 	$DirectionController.rotate_left()
 
-func can_place(location: Vector2):
-	return !BuildingCoordinator.check_location(location)
-
 func place(location: Vector2):
 	var belt = conveyor.instantiate()
 	var directions: Array[Enums.Direction] = [to_direction]
-	belt.directions = directions
+	belt.rotation_degrees = $".".rotation_degrees
 	belt.global_position = location
 	# do something different to control where it gets added
 	get_tree().current_scene.add_child(belt)
 
 func _on_from_direction_controller_direction_changed():
-	determine_from_direction()
-	$ConveyorSpriteController.set_sprite_frame(to_direction, from_direction)
+	#determine_from_direction()
+	#$ConveyorSpriteController.set_sprite_frame(to_direction, from_direction)
+	pass
 
 func _on_direction_controller_directions_changed(to_directions: Array[Enums.Direction]):
 	update_to_direction(to_directions)
 
 func determine_from_direction():
-	from_direction = $FromDirectionController.get_from_direction(to_direction)
+	#from_direction = $FromDirectionController.get_from_direction(to_direction)
+	pass

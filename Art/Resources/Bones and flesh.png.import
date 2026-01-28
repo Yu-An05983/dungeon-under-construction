@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlq2gtok3qsjb"
-path="res://.godot/imported/splitter_all_sheet.png-bd4a646623a973d8df518ce65b48fa09.ctex"
+uid="uid://dsw6251gpitv2"
+path="res://.godot/imported/Bones and flesh.png-3c0b7f06c8c8c0abb1e67a895a089759.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/splitter_all_sheet.png"
-dest_files=["res://.godot/imported/splitter_all_sheet.png-bd4a646623a973d8df518ce65b48fa09.ctex"]
+source_file="res://Art/Resources/Bones and flesh.png"
+dest_files=["res://.godot/imported/Bones and flesh.png-3c0b7f06c8c8c0abb1e67a895a089759.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhd3c3ck60cug"
-path="res://.godot/imported/quartzite.png-e5faeaf642d91ab3e081c1aed1257cdc.ctex"
+uid="uid://x3fuyvh1mncv"
+path="res://.godot/imported/counter clockwise conveyor.png-3ea49c642478695dae513618956816d5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/quartzite.png"
-dest_files=["res://.godot/imported/quartzite.png-e5faeaf642d91ab3e081c1aed1257cdc.ctex"]
+source_file="res://Art/Conveyors/counter clockwise conveyor.png"
+dest_files=["res://.godot/imported/counter clockwise conveyor.png-3ea49c642478695dae513618956816d5.ctex"]
 
 [params]
 

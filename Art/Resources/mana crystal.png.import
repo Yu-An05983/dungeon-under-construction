@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://diug60ufxe36v"
-path="res://.godot/imported/lithos.png-e952038af3688750539f0435434eea37.ctex"
+uid="uid://bf2clp8sgb3iv"
+path="res://.godot/imported/mana crystal.png-a80fb4c6e34d61026b62e8f3efc6257f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/lithos.png"
-dest_files=["res://.godot/imported/lithos.png-e952038af3688750539f0435434eea37.ctex"]
+source_file="res://Art/Resources/mana crystal.png"
+dest_files=["res://.godot/imported/mana crystal.png-a80fb4c6e34d61026b62e8f3efc6257f.ctex"]
 
 [params]
 

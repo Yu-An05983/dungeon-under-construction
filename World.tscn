@@ -1,61 +1,145 @@
-[gd_scene load_steps=18 format=3 uid="uid://qfkt25nhf3dw"]
+[gd_scene load_steps=20 format=3 uid="uid://qfkt25nhf3dw"]
 
 [ext_resource type="Texture2D" uid="uid://6smhsjwy1nyx" path="res://icon.svg" id="1_bcbcq"]
 [ext_resource type="PackedScene" uid="uid://desq3t7ol8ylt" path="res://player.tscn" id="2_js7pq"]
 [ext_resource type="Script" uid="uid://chumhqvd02kqf" path="res://camera_2d.gd" id="3_eu7l1"]
-[ext_resource type="PackedScene" uid="uid://cfwfejmwtkwmg" path="res://Conveyors/belt.tscn" id="5_bah7m"]
-[ext_resource type="PackedScene" uid="uid://ca6vcitmain1q" path="res://Conveyors/splitter.tscn" id="6_fv4w7"]
-[ext_resource type="PackedScene" uid="uid://2sdi7rhr14fh" path="res://Conveyors/generator.tscn" id="7_fvag4"]
 [ext_resource type="Script" uid="uid://ddfha0xv88brh" path="res://UI/selection_btn.gd" id="8_f5c0m"]
-[ext_resource type="PackedScene" uid="uid://d3r5ri72l82h6" path="res://Conveyors/trash.tscn" id="8_kva58"]
 [ext_resource type="PackedScene" uid="uid://plarxj2333q7" path="res://Building/buildable_conveyor.tscn" id="9_b2ar6"]
-[ext_resource type="Texture2D" uid="uid://byaa32kn30t70" path="res://Art/conveyors_1.png" id="10_ee7l0"]
-[ext_resource type="PackedScene" path="res://Conveyors/buildablegenerator.tscn" id="11_gn8l5"]
-[ext_resource type="Texture2D" uid="uid://bl8bhfger7ntd" path="res://Art/item give.png" id="12_6w02q"]
-[ext_resource type="Texture2D" uid="uid://bj1k3b5s13fd3" path="res://Art/item delete.png" id="13_b2ar6"]
-[ext_resource type="PackedScene" path="res://Conveyors/buildabletrash.tscn" id="13_ee7l0"]
-[ext_resource type="Texture2D" uid="uid://kop1pknflp1b" path="res://Art/gold.png" id="15_gn8l5"]
+[ext_resource type="Texture2D" uid="uid://byaa32kn30t70" path="res://Art/Conveyors/conveyors_1.png" id="10_ee7l0"]
+[ext_resource type="PackedScene" uid="uid://c8w1w0squsynp" path="res://Conveyors/buildablegenerator.tscn" id="11_gn8l5"]
+[ext_resource type="Texture2D" uid="uid://bl8bhfger7ntd" path="res://Art/Resources/item give.png" id="12_6w02q"]
+[ext_resource type="Script" uid="uid://cadi08x7agyhn" path="res://Conveyors/Conveyor/conveyorsystem.gd" id="13_6w02q"]
+[ext_resource type="Texture2D" uid="uid://bj1k3b5s13fd3" path="res://Art/Resources/item delete.png" id="13_b2ar6"]
+[ext_resource type="PackedScene" uid="uid://uqjnxa32vr20" path="res://Conveyors/buildabletrash.tscn" id="13_ee7l0"]
+[ext_resource type="Script" uid="uid://b113u7nmsgijn" path="res://Conveyors/Conveyor/spawner.gd" id="14_1fphk"]
+[ext_resource type="Texture2D" uid="uid://brxgh7eduxei1" path="res://Art/icon.svg" id="15_1fphk"]
+[ext_resource type="Texture2D" uid="uid://kop1pknflp1b" path="res://Art/Resources/gold.png" id="15_gn8l5"]
+[ext_resource type="PackedScene" uid="uid://blmiq16wnkx2i" path="res://Conveyors/Conveyor/belt_map.tscn" id="15_sjtuv"]
 [ext_resource type="FontFile" uid="uid://dnwe30ygvd7s7" path="res://xolonium/xolonium-fonts-4.1/otf/Xolonium-Regular.otf" id="16_6w02q"]
+[ext_resource type="Texture2D" uid="uid://b6cyk57eg8syv" path="res://Art/Conveyors/ConveyorSheet.png" id="16_cvq6i"]
 
-[sub_resource type="GDScript" id="GDScript_bah7m"]
-script/source = "extends Node2D
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6tx0c"]
+texture = ExtResource("16_cvq6i")
+0:0/animation_columns = 4
+0:0/animation_speed = 7.5
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/animation_frame_2/duration = 1.0
+0:0/animation_frame_3/duration = 1.0
+0:0/0 = 0
+0:0/0/custom_data_0 = "conveyor"
+0:0/0/custom_data_1 = Vector2i(1, 0)
+0:1/animation_columns = 4
+0:1/animation_speed = 7.5
+0:1/animation_frame_0/duration = 1.0
+0:1/animation_frame_1/duration = 1.0
+0:1/animation_frame_2/duration = 1.0
+0:1/animation_frame_3/duration = 1.0
+0:1/0 = 0
+0:1/0/custom_data_0 = "conveyor"
+0:1/0/custom_data_1 = Vector2i(0, 1)
+0:2/animation_columns = 4
+0:2/animation_speed = 7.5
+0:2/animation_frame_0/duration = 1.0
+0:2/animation_frame_1/duration = 1.0
+0:2/animation_frame_2/duration = 1.0
+0:2/animation_frame_3/duration = 1.0
+0:2/0 = 0
+0:2/0/custom_data_0 = "conveyor"
+0:2/0/custom_data_1 = Vector2i(-1, 0)
+0:3/animation_columns = 4
+0:3/animation_speed = 7.5
+0:3/animation_frame_0/duration = 1.0
+0:3/animation_frame_1/duration = 1.0
+0:3/animation_frame_2/duration = 1.0
+0:3/animation_frame_3/duration = 1.0
+0:3/0 = 0
+0:3/0/custom_data_0 = "conveyor"
+0:3/0/custom_data_1 = Vector2i(0, -1)
+0:4/animation_columns = 4
+0:4/animation_speed = 7.5
+0:4/animation_frame_0/duration = 1.0
+0:4/animation_frame_1/duration = 1.0
+0:4/animation_frame_2/duration = 1.0
+0:4/animation_frame_3/duration = 1.0
+0:4/0 = 0
+0:4/0/custom_data_0 = "conveyor"
+0:4/0/custom_data_1 = Vector2i(0, 1)
+0:5/animation_columns = 4
+0:5/animation_speed = 7.5
+0:5/animation_frame_0/duration = 1.0
+0:5/animation_frame_1/duration = 1.0
+0:5/animation_frame_2/duration = 1.0
+0:5/animation_frame_3/duration = 1.0
+0:5/0 = 0
+0:5/0/custom_data_0 = "conveyor"
+0:5/0/custom_data_1 = Vector2i(1, 0)
+0:6/animation_columns = 4
+0:6/animation_speed = 7.5
+0:6/animation_frame_0/duration = 1.0
+0:6/animation_frame_1/duration = 1.0
+0:6/animation_frame_2/duration = 1.0
+0:6/animation_frame_3/duration = 1.0
+0:6/0 = 0
+0:6/0/custom_data_0 = "conveyor"
+0:6/0/custom_data_1 = Vector2i(0, -1)
+0:7/animation_columns = 4
+0:7/animation_speed = 7.5
+0:7/animation_frame_0/duration = 1.0
+0:7/animation_frame_1/duration = 1.0
+0:7/animation_frame_2/duration = 1.0
+0:7/animation_frame_3/duration = 1.0
+0:7/0 = 0
+0:7/0/custom_data_0 = "conveyor"
+0:7/0/custom_data_1 = Vector2i(-1, 0)
+0:8/animation_columns = 4
+0:8/animation_speed = 7.5
+0:8/animation_frame_0/duration = 1.0
+0:8/animation_frame_1/duration = 1.0
+0:8/animation_frame_2/duration = 1.0
+0:8/animation_frame_3/duration = 1.0
+0:8/0 = 0
+0:8/0/custom_data_0 = "conveyor"
+0:8/0/custom_data_1 = Vector2i(0, -1)
+0:9/animation_columns = 4
+0:9/animation_speed = 7.5
+0:9/animation_frame_0/duration = 1.0
+0:9/animation_frame_1/duration = 1.0
+0:9/animation_frame_2/duration = 1.0
+0:9/animation_frame_3/duration = 1.0
+0:9/0 = 0
+0:9/0/custom_data_0 = "conveyor"
+0:9/0/custom_data_1 = Vector2i(1, 0)
+0:10/animation_columns = 4
+0:10/animation_speed = 7.5
+0:10/animation_frame_0/duration = 1.0
+0:10/animation_frame_1/duration = 1.0
+0:10/animation_frame_2/duration = 1.0
+0:10/animation_frame_3/duration = 1.0
+0:10/0 = 0
+0:10/0/custom_data_0 = "conveyor"
+0:10/0/custom_data_1 = Vector2i(0, 1)
+0:11/animation_columns = 4
+0:11/animation_speed = 7.5
+0:11/animation_frame_0/duration = 1.0
+0:11/animation_frame_1/duration = 1.0
+0:11/animation_frame_2/duration = 1.0
+0:11/animation_frame_3/duration = 1.0
+0:11/0 = 0
+0:11/0/custom_data_0 = "conveyor"
+0:11/0/custom_data_1 = Vector2i(-1, 0)
 
-@export var save_scene = \"\"
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-func load_from_save_data(save_data):
-	var nodes = save_data[\"nodes\"]
-	
-	for node in nodes:
-		var loaded_scene = load(node[\"path\"])
-		var scene = loaded_scene.instantiate()
-		add_child(scene)
-		scene.load_from_save_data(node)
-		
-
-func get_save_data():
-	var data = {}
-	var nodes = []
-	for child in get_children():
-		nodes.append(child.get_save_data())
-	data[\"nodes\"] = nodes
-	return data
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
-func _on_conveyor_btn_pressed() -> void:
-	pass # Replace with function body.
-"
+[sub_resource type="TileSet" id="TileSet_0to5b"]
+custom_data_layer_0/name = "type"
+custom_data_layer_0/type = 4
+custom_data_layer_1/name = "dir"
+custom_data_layer_1/type = 6
+sources/6 = SubResource("TileSetAtlasSource_6tx0c")
 
 [node name="Main" type="Node"]
 
 [node name="floor(to be replaced)" type="Sprite2D" parent="."]
-position = Vector2(360, 363)
+position = Vector2(1225, 373)
 scale = Vector2(5.64844, 5.64844)
 texture = ExtResource("1_bcbcq")
 
@@ -66,44 +150,9 @@ z_index = 9
 zoom = Vector2(0.3, 0.3)
 script = ExtResource("3_eu7l1")
 
-[node name="Tiles" type="Node2D" parent="."]
-position = Vector2(1625, 193)
-script = SubResource("GDScript_bah7m")
-
-[node name="Belt" parent="Tiles" instance=ExtResource("5_bah7m")]
-position = Vector2(128, 0)
-
-[node name="Belt2" parent="Tiles" instance=ExtResource("5_bah7m")]
-position = Vector2(64, 0)
-
-[node name="Belt3" parent="Tiles" instance=ExtResource("5_bah7m")]
-position = Vector2(0, 64)
-directions = Array[int]([3])
-
-[node name="Belt5" parent="Tiles" instance=ExtResource("5_bah7m")]
-position = Vector2(-64, 0)
-
-[node name="Belt4" parent="Tiles" instance=ExtResource("5_bah7m")]
-position = Vector2(0, -64)
-directions = Array[int]([1])
-
-[node name="Splitter" parent="Tiles" instance=ExtResource("6_fv4w7")]
-directions = Array[int]([0, 1, 3])
-
-[node name="Generator" parent="Tiles" instance=ExtResource("7_fvag4")]
-position = Vector2(192, 0)
-
-[node name="Trash" parent="Tiles" instance=ExtResource("8_kva58")]
-position = Vector2(0, 128)
-
-[node name="Trash2" parent="Tiles" instance=ExtResource("8_kva58")]
-position = Vector2(0, -128)
-
-[node name="Trash3" parent="Tiles" instance=ExtResource("8_kva58")]
-position = Vector2(-128, 0)
-
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
+visible = false
 
 [node name="Selection" type="Panel" parent="UI"]
 anchors_preset = 7
@@ -191,6 +240,26 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("16_6w02q")
 theme_override_font_sizes/font_size = 45
 text = "67"
+
+[node name="ConveyorSystem" type="Node2D" parent="."]
+script = ExtResource("13_6w02q")
+
+[node name="Path2D" type="Path2D" parent="ConveyorSystem"]
+
+[node name="Spawner" type="Node2D" parent="."]
+texture_filter = 1
+position = Vector2(-217, 32)
+script = ExtResource("14_1fphk")
+
+[node name="Sprite2D" type="Sprite2D" parent="Spawner"]
+scale = Vector2(0.36, 0.36)
+texture = ExtResource("15_1fphk")
+metadata/_edit_lock_ = true
+
+[node name="BeltMap" parent="." instance=ExtResource("15_sjtuv")]
+z_index = -22
+tile_set = SubResource("TileSet_0to5b")
+layer_0/tile_data = PackedInt32Array(65533, 6, 9, 65534, 6, 9, 65535, 6, 9, 0, 6, 9, 1, 6, 9, 2, 6, 9, -65533, 6, 8, -131069, 6, 8, -196605, 6, 8, -262141, 6, 8, 3, 6, 6)
 
 [connection signal="pressed" from="UI/Selection/HBoxContainer/Selection_btn" to="UI/Selection/HBoxContainer/Selection_btn" method="_on_pressed"]
 [connection signal="pressed" from="UI/Selection/HBoxContainer/Selection_btn2" to="UI/Selection/HBoxContainer/Selection_btn2" method="_on_pressed"]

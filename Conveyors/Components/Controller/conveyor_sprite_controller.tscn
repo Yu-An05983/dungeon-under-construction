@@ -1,10 +1,54 @@
-[gd_scene load_steps=3 format=3 uid="uid://cltpvpyouk2u0"]
+[gd_scene load_steps=8 format=3 uid="uid://cltpvpyouk2u0"]
 
-[ext_resource type="Texture2D" uid="uid://byaa32kn30t70" path="res://Art/conveyors_1.png" id="1_ds0hb"]
+[ext_resource type="Texture2D" uid="uid://blcwd4xhp4gvf" path="res://Art/Conveyors/Straight conveyor.png" id="1_0xpc3"]
 [ext_resource type="Script" uid="uid://xudi6ujxsrir" path="res://Conveyors/Components/Controller/conveyor_sprite_controller.gd" id="2_ig862"]
 
-[node name="ConveyorSpriteController" type="Sprite2D"]
-texture = ExtResource("1_ds0hb")
-hframes = 5
-vframes = 3
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xpc3"]
+atlas = ExtResource("1_0xpc3")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i178y"]
+atlas = ExtResource("1_0xpc3")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ijij"]
+atlas = ExtResource("1_0xpc3")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ve8xm"]
+atlas = ExtResource("1_0xpc3")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0yqh5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xpc3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i178y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ijij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ve8xm")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation_1",
+"speed": 5.0
+}]
+
+[node name="ConveyorSpriteController" type="AnimatedSprite2D"]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_0yqh5")
+animation = &"new_animation"
+autoplay = "new_animation"
+frame_progress = 0.168433
 script = ExtResource("2_ig862")

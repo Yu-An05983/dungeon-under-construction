@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dds55o2ponwp0"
-path="res://.godot/imported/ignium.png-b50178006fc7e08c98bd73a728c1018c.ctex"
+uid="uid://diug60ufxe36v"
+path="res://.godot/imported/lithos.png-4ef18000105f68d94eda87b14f4f2146.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/ignium.png"
-dest_files=["res://.godot/imported/ignium.png-b50178006fc7e08c98bd73a728c1018c.ctex"]
+source_file="res://Art/Resources/lithos.png"
+dest_files=["res://.godot/imported/lithos.png-4ef18000105f68d94eda87b14f4f2146.ctex"]
 
 [params]
 

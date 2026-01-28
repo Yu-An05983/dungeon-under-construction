@@ -1,5 +1,5 @@
-extends Sprite2D
-var has_sheet = true
+extends AnimatedSprite2D
+var has_sheet = false
 
 func set_sprite_frame(to: Enums.Direction, from: Enums.Direction):
 	if has_sheet == false:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kop1pknflp1b"
-path="res://.godot/imported/gold.png-2f1c74a6882119621f3f1d1d63d24e3f.ctex"
+uid="uid://c6hwcqjgqhmra"
+path="res://.godot/imported/neonite.png-45c6df0f6c75ad2c9d1fc379eb6c5590.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/gold.png"
-dest_files=["res://.godot/imported/gold.png-2f1c74a6882119621f3f1d1d63d24e3f.ctex"]
+source_file="res://Art/Resources/neonite.png"
+dest_files=["res://.godot/imported/neonite.png-45c6df0f6c75ad2c9d1fc379eb6c5590.ctex"]
 
 [params]
 

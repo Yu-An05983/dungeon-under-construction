@@ -8,7 +8,7 @@ func rotate_counter():
 	pass
 
 func can_place(location: Vector2):
-	pass
+	return !BuildingCoordinator.check_location(location)
 
 func place(location: Vector2):
 	pass

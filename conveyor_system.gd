@@ -2,8 +2,8 @@ extends Node2D
 var to_direction: Enums.Direction = Enums.Direction.Left
 var from_direction: Enums.Direction = Enums.Direction.Right
 @export var directions : Array[Enums.Direction] = []
-@onready var from_controller : FromDirectionController = $FromDirectionController
-@onready var sprite = $ConveyorSpriteController
+#@onready var from_controller : FromDirectionController = $FromDirectionController
+#@onready var sprite = $ConveyorSpriteController
 
 func get_save_data():
 	var data = {}
@@ -32,13 +32,14 @@ func set_direction():
 
 func _ready():
 	# BuildingCoordinator.add_building(global_position, self)
-	$DirectionController.set_directions(directions)
+	#$DirectionController.set_directions(directions)
+	pass
 
 func update_to_direction(to_directions):
 	to_direction = to_directions[0]
 	determine_from_direction()
 	set_direction()
-	$ConveyorDetectors.set_directions(to_directions)
+	#$ConveyorDetectors.set_directions(to_directions)
 
 
 func _on_conveyor_detectors_inventory_found(inventory: ConveyorInventory):

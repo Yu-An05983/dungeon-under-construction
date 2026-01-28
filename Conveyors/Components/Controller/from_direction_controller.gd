@@ -23,55 +23,56 @@ func get_from_direction(to_direction: Enums.Direction):
 	var up = get_directions(Enums.Direction.Up)
 	var from_direction: Enums.Direction = Enums.Direction.Left
 	match to_direction:
-		Enums.Direction.Left:
-			if len(right) > 0 and right.has(Enums.Direction.Left):
-				from_direction = Enums.Direction.Right
-			elif len(up) > 0 and up.has(Enums.Direction.Down):
-				if len(down) > 0 and down.has(Enums.Direction.Up):
-					from_direction = Enums.Direction.Right
-				else:
-					from_direction = Enums.Direction.Up
-			if len(down) > 0 and down.has(Enums.Direction.Up):
-				from_direction = Enums.Direction.Down
-			else:
-				from_direction = Enums.Direction.Right
-		Enums.Direction.Right:
-			if len(left) > 0 and left.has(Enums.Direction.Right):
-				from_direction = Enums.Direction.Left
-			elif len(up) > 0 and up.has(Enums.Direction.Down):
-				if len(down) > 0 and down.has(Enums.Direction.Up):
-					from_direction = Enums.Direction.Left
-				else:
-					from_direction = Enums.Direction.Up
-			if len(down) > 0 and down.has(Enums.Direction.Up):
-				from_direction = Enums.Direction.Down
-			else:
-				from_direction = Enums.Direction.Left
-		Enums.Direction.Up:
-			if len(down) > 0 and down.has(Enums.Direction.Up):
-				from_direction = Enums.Direction.Down 
-			elif len(right) > 0 and right.has(Enums.Direction.Left):
-				if len(left) > 0 and left.has(Enums.Direction.Right):
-					from_direction = Enums.Direction.Down
-				else:
-					from_direction = Enums.Direction.Right
-			elif len(left) > 0 and left.has(Enums.Direction.Right):
-				from_direction = Enums.Direction.Left
-			else:
-				from_direction = Enums.Direction.Down
-		Enums.Direction.Down:
-			if len(up) > 0 and up.has(Enums.Direction.Down):
-				from_direction = Enums.Direction.Up
-			elif len(right) > 0 and right.has(Enums.Direction.Left):
-				if len(left) > 0 and left.has(Enums.Direction.Right):
-					from_direction = Enums.Direction.Up
-				else:
-					from_direction = Enums.Direction.Right
-			elif len(left) > 0 and left.has(Enums.Direction.Right):
-				from_direction = Enums.Direction.Left
-			else:
-				from_direction = Enums.Direction.Up
-	return from_direction
+		pass
+		#Enums.Direction.Left:
+			#if len(right) > 0 and right.has(Enums.Direction.Left):
+				#from_direction = Enums.Direction.Right
+			#elif len(up) > 0 and up.has(Enums.Direction.Down):
+				#if len(down) > 0 and down.has(Enums.Direction.Up):
+					#from_direction = Enums.Direction.Right
+				#else:
+					#from_direction = Enums.Direction.Up
+			#if len(down) > 0 and down.has(Enums.Direction.Up):
+				#from_direction = Enums.Direction.Down
+			#else:
+				#from_direction = Enums.Direction.Right
+		#Enums.Direction.Right:
+			#if len(left) > 0 and left.has(Enums.Direction.Right):
+				#from_direction = Enums.Direction.Left
+			#elif len(up) > 0 and up.has(Enums.Direction.Down):
+				#if len(down) > 0 and down.has(Enums.Direction.Up):
+					#from_direction = Enums.Direction.Left
+				#else:
+					#from_direction = Enums.Direction.Up
+			#if len(down) > 0 and down.has(Enums.Direction.Up):
+				#from_direction = Enums.Direction.Down
+			#else:
+				#from_direction = Enums.Direction.Left
+		#Enums.Direction.Up:
+			#if len(down) > 0 and down.has(Enums.Direction.Up):
+				#from_direction = Enums.Direction.Down 
+			#elif len(right) > 0 and right.has(Enums.Direction.Left):
+				#if len(left) > 0 and left.has(Enums.Direction.Right):
+					#from_direction = Enums.Direction.Down
+				#else:
+					#from_direction = Enums.Direction.Right
+			#elif len(left) > 0 and left.has(Enums.Direction.Right):
+				#from_direction = Enums.Direction.Left
+			#else:
+				#from_direction = Enums.Direction.Down
+		#Enums.Direction.Down:
+			#if len(up) > 0 and up.has(Enums.Direction.Down):
+				#from_direction = Enums.Direction.Up
+			#elif len(right) > 0 and right.has(Enums.Direction.Left):
+				#if len(left) > 0 and left.has(Enums.Direction.Right):
+					#from_direction = Enums.Direction.Up
+				#else:
+					#from_direction = Enums.Direction.Right
+			#elif len(left) > 0 and left.has(Enums.Direction.Right):
+				#from_direction = Enums.Direction.Left
+			#else:
+				#from_direction = Enums.Direction.Up
+	#return from_direction
 
 func get_directions(direction: Enums.Direction) -> Array[Enums.Direction]:
 	var detector : DirectionDetector = directions[direction]
