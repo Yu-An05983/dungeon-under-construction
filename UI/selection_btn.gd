@@ -1,18 +1,16 @@
 extends Button
-@onready var builder = preload("res://Building/builder.tscn")
+@onready var placement = preload("res://Building/placement.tscn")
 @export var to_build: PackedScene
-var build_instance
+
+var switch = false
+var placer = null
+
 func _on_pressed() -> void:
-	if BuildingCoordinator.is_pressed == false:
-		BuildingCoordinator.is_pressed = !BuildingCoordinator.is_pressed
-		print(BuildingCoordinator.is_pressed)
-		build_instance = builder.instantiate()
-		build_instance.to_build = to_build
-		get_tree().current_scene.add_child(build_instance)
+	if is_instance_valid(placer) and placer.is_inside_tree():
+		placer.deactivate()
+		placer.queue_free()
+		placer = null
 	else:
-		if build_instance:
-			BuildingCoordinator.is_pressed = !BuildingCoordinator.is_pressed
-			print(BuildingCoordinator.is_pressed)
-			build_instance.queue_free()
-			build_instance = null
-	
+		placer = placement.instantiate()
+		#placer.to_build = to_build
+		get_tree().current_scene.add_child(placer)

@@ -1,5 +1,6 @@
 extends Node
-
+class Buildable:
+	pass
 
 var buildings = {}
 var is_pressed = false

@@ -1,0 +1,88 @@
+[gd_scene load_steps=10 format=3 uid="uid://qfkt25nhf3dw"]
+
+[ext_resource type="Texture2D" uid="uid://6smhsjwy1nyx" path="res://icon.svg" id="1_bcbcq"]
+[ext_resource type="PackedScene" uid="uid://desq3t7ol8ylt" path="res://player.tscn" id="2_js7pq"]
+[ext_resource type="Script" uid="uid://chumhqvd02kqf" path="res://camera_2d.gd" id="3_eu7l1"]
+[ext_resource type="Script" uid="uid://cadi08x7agyhn" path="res://Conveyors/Conveyor/conveyorsystem.gd" id="13_6w02q"]
+[ext_resource type="Script" uid="uid://b113u7nmsgijn" path="res://Conveyors/Conveyor/spawner.gd" id="14_1fphk"]
+[ext_resource type="Texture2D" uid="uid://brxgh7eduxei1" path="res://Art/icon.svg" id="15_1fphk"]
+[ext_resource type="PackedScene" uid="uid://blmiq16wnkx2i" path="res://Conveyors/Conveyor/belt_map.tscn" id="15_sjtuv"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6tx0c"]
+0:0/0 = 0
+0:0/0/custom_data_0 = "conveyor"
+0:0/0/custom_data_1 = Vector2i(1, 0)
+0:1/0 = 0
+0:1/0/custom_data_0 = "conveyor"
+0:1/0/custom_data_1 = Vector2i(0, 1)
+0:2/0 = 0
+0:2/0/custom_data_0 = "conveyor"
+0:2/0/custom_data_1 = Vector2i(-1, 0)
+0:3/0 = 0
+0:3/0/custom_data_0 = "conveyor"
+0:3/0/custom_data_1 = Vector2i(0, -1)
+0:4/0 = 0
+0:4/0/custom_data_0 = "conveyor"
+0:4/0/custom_data_1 = Vector2i(0, 1)
+0:5/0 = 0
+0:5/0/custom_data_0 = "conveyor"
+0:5/0/custom_data_1 = Vector2i(1, 0)
+0:6/0 = 0
+0:6/0/custom_data_0 = "conveyor"
+0:6/0/custom_data_1 = Vector2i(0, -1)
+0:7/0 = 0
+0:7/0/custom_data_0 = "conveyor"
+0:7/0/custom_data_1 = Vector2i(-1, 0)
+0:8/0 = 0
+0:8/0/custom_data_0 = "conveyor"
+0:8/0/custom_data_1 = Vector2i(0, -1)
+0:9/0 = 0
+0:9/0/custom_data_0 = "conveyor"
+0:9/0/custom_data_1 = Vector2i(1, 0)
+0:10/0 = 0
+0:10/0/custom_data_0 = "conveyor"
+0:10/0/custom_data_1 = Vector2i(0, 1)
+0:11/0 = 0
+0:11/0/custom_data_0 = "conveyor"
+0:11/0/custom_data_1 = Vector2i(-1, 0)
+
+[sub_resource type="TileSet" id="TileSet_0to5b"]
+custom_data_layer_0/name = "type"
+custom_data_layer_0/type = 4
+custom_data_layer_1/name = "dir"
+custom_data_layer_1/type = 6
+sources/6 = SubResource("TileSetAtlasSource_6tx0c")
+
+[node name="Main" type="Node"]
+
+[node name="floor(to be replaced)" type="Sprite2D" parent="."]
+position = Vector2(1225, 373)
+scale = Vector2(5.64844, 5.64844)
+texture = ExtResource("1_bcbcq")
+
+[node name="Player" parent="." instance=ExtResource("2_js7pq")]
+z_index = 9
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(0.3, 0.3)
+script = ExtResource("3_eu7l1")
+
+[node name="ConveyorSystem" type="Node2D" parent="."]
+script = ExtResource("13_6w02q")
+
+[node name="Path2D" type="Path2D" parent="ConveyorSystem"]
+
+[node name="Spawner" type="Node2D" parent="."]
+texture_filter = 1
+position = Vector2(-217, 32)
+script = ExtResource("14_1fphk")
+
+[node name="Sprite2D" type="Sprite2D" parent="Spawner"]
+scale = Vector2(0.36, 0.36)
+texture = ExtResource("15_1fphk")
+metadata/_edit_lock_ = true
+
+[node name="BeltMap" parent="." instance=ExtResource("15_sjtuv")]
+z_index = -22
+tile_set = SubResource("TileSet_0to5b")
+layer_0/tile_data = PackedInt32Array(65533, 6, 9, 65534, 6, 9, 65535, 6, 9, 0, 6, 9, 1, 6, 9, 2, 6, 9, -65533, 6, 8, -131069, 6, 8, -196605, 6, 8, -262141, 6, 8, 3, 6, 6)

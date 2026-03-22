@@ -18,21 +18,198 @@
 [ext_resource type="FontFile" uid="uid://dnwe30ygvd7s7" path="res://xolonium/xolonium-fonts-4.1/otf/Xolonium-Regular.otf" id="16_6w02q"]
 [ext_resource type="Texture2D" uid="uid://b6cyk57eg8syv" path="res://Art/Conveyors/ConveyorSheet.png" id="16_cvq6i"]
 
+[sub_resource type="GDScript" id="GDScript_1fphk"]
+script/source = "extends Node2D
+class_name FromDirectionController
+const DIRECTION_DETECTOR = preload(\"res://Conveyors/Components/Detectors/direction_detector.tscn\")
+signal direction_changed
+var directions := {}
+
+func _ready():
+	for direction in Enums.Direction.values():
+		var detector = DIRECTION_DETECTOR.instantiate()
+		detector.position = DirectionHelper.get_vector_for_direction(direction) * Constants.grid_size
+		detector.connect(\"directions_changed\", emit_change)
+		add_child(detector)
+		directions[direction] = detector 
+		
+
+func emit_change():
+	emit_signal(\"direction_changed\")
+
+func get_from_direction(to_direction: Enums.Direction):
+	var right = get_directions(Enums.Direction.Right)
+	var left = get_directions(Enums.Direction.Left)
+	var down = get_directions(Enums.Direction.Down)
+	var up = get_directions(Enums.Direction.Up)
+	var from_direction: Enums.Direction = Enums.Direction.Left
+	match to_direction:
+		pass
+		#Enums.Direction.Left:
+			#if len(right) > 0 and right.has(Enums.Direction.Left):
+				#from_direction = Enums.Direction.Right
+			#elif len(up) > 0 and up.has(Enums.Direction.Down):
+				#if len(down) > 0 and down.has(Enums.Direction.Up):
+					#from_direction = Enums.Direction.Right
+				#else:
+					#from_direction = Enums.Direction.Up
+			#if len(down) > 0 and down.has(Enums.Direction.Up):
+				#from_direction = Enums.Direction.Down
+			#else:
+				#from_direction = Enums.Direction.Right
+		#Enums.Direction.Right:
+			#if len(left) > 0 and left.has(Enums.Direction.Right):
+				#from_direction = Enums.Direction.Left
+			#elif len(up) > 0 and up.has(Enums.Direction.Down):
+				#if len(down) > 0 and down.has(Enums.Direction.Up):
+					#from_direction = Enums.Direction.Left
+				#else:
+					#from_direction = Enums.Direction.Up
+			#if len(down) > 0 and down.has(Enums.Direction.Up):
+				#from_direction = Enums.Direction.Down
+			#else:
+				#from_direction = Enums.Direction.Left
+		#Enums.Direction.Up:
+			#if len(down) > 0 and down.has(Enums.Direction.Up):
+				#from_direction = Enums.Direction.Down 
+			#elif len(right) > 0 and right.has(Enums.Direction.Left):
+				#if len(left) > 0 and left.has(Enums.Direction.Right):
+					#from_direction = Enums.Direction.Down
+				#else:
+					#from_direction = Enums.Direction.Right
+			#elif len(left) > 0 and left.has(Enums.Direction.Right):
+				#from_direction = Enums.Direction.Left
+			#else:
+				#from_direction = Enums.Direction.Down
+		#Enums.Direction.Down:
+			#if len(up) > 0 and up.has(Enums.Direction.Down):
+				#from_direction = Enums.Direction.Up
+			#elif len(right) > 0 and right.has(Enums.Direction.Left):
+				#if len(left) > 0 and left.has(Enums.Direction.Right):
+					#from_direction = Enums.Direction.Up
+				#else:
+					#from_direction = Enums.Direction.Right
+			#elif len(left) > 0 and left.has(Enums.Direction.Right):
+				#from_direction = Enums.Direction.Left
+			#else:
+				#from_direction = Enums.Direction.Up
+	#return from_direction
+
+func get_directions(direction: Enums.Direction) -> Array[Enums.Direction]:
+	var detector : DirectionDetector = directions[direction]
+	if detector == null:
+		return []
+	return detector.get_directions()
+"
+
+[sub_resource type="PackedScene" id="PackedScene_sjtuv"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("FromDirectionController", "Node2D", "script"),
+"node_count": 1,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 1, 2, 0, 0),
+"variants": [SubResource("GDScript_1fphk")],
+"version": 3
+}
+
+[sub_resource type="GDScript" id="GDScript_cvq6i"]
+script/source = "extends Area2D
+class_name DirectionController
+@export var to_directions : Array[Enums.Direction] = [Enums.Direction.Left]
+signal directions_changed
+const DIRECTION_ORDER : Array[Enums.Direction] = [Enums.Direction.Left, Enums.Direction.Up, Enums.Direction.Right, Enums.Direction.Down]
+const DIRECTION_COUNT = 4
+var indexes := {Enums.Direction.Left: 0, Enums.Direction.Up: 1, Enums.Direction.Right: 2, Enums.Direction.Down: 3}
+
+func set_directions(directions: Array[Enums.Direction]) -> void:
+	to_directions = directions
+	emit_signal(\"directions_changed\", to_directions)
+
+func get_directions() -> Array[Enums.Direction]:
+	return to_directions
+
+func rotate_right() -> void:
+	rotate_belt(1)
+	
+func rotate_left() -> void:
+	rotate_belt(-1)
+
+func rotate_belt(offset: int) -> void:
+	for idx in len(to_directions):
+		var direction: int = to_directions[idx]
+		var index: int = (indexes[direction] + offset) % DIRECTION_COUNT
+		if index < 0:
+			index = index + DIRECTION_COUNT
+		to_directions[idx] = DIRECTION_ORDER[index]
+	emit_signal(\"directions_changed\", to_directions)
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fe2s"]
 size = Vector2(16, 16)
 
+[sub_resource type="PackedScene" id="PackedScene_6tx0c"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("DirectionController", "Area2D", "collision_layer", "collision_mask", "monitoring", "script", "CollisionShape2D", "CollisionShape2D", "shape"),
+"node_count": 2,
+"node_paths": [NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 4, 2, 0, 3, 1, 4, 2, 5, 3, 0, 1073741824, 0, 7, 6, -1, 1, 8, 4, 0),
+"variants": [2, 0, false, SubResource("GDScript_cvq6i"), SubResource("RectangleShape2D_8fe2s")],
+"version": 3
+}
+
+[sub_resource type="PackedScene" id="PackedScene_rp4qs"]
+_bundled = {
+"conn_count": 2,
+"conns": PackedInt32Array(1073741828, 1073741827, 9, 8, 2, 0, 0, 1073741830, 1073741829, 11, 10, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("BuildableConveyor", "Node2D", "scale", "script", "FromDirectionController", "ConveyorSpriteController", "DirectionController", "monitorable", "_on_from_direction_controller_direction_changed", "direction_changed", "_on_direction_controller_directions_changed", "directions_changed"),
+"node_count": 4,
+"node_paths": [NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath("FromDirectionController"), NodePath("."), NodePath("DirectionController")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 2, 2, 0, 3, 1, 0, 1073741824, 0, 2147483647, 4, 2, 0, 0, 1073741825, 0, 2147483647, 5, 3, 0, 0, 1073741826, 0, 2147483647, 6, 4, 1, 7, 5, 0),
+"variants": [Vector2(2, 2), SubResource("PackedScene_sjtuv"), ExtResource("6_5j71u"), SubResource("PackedScene_6tx0c"), false],
+"version": 3
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_te7xo"]
 size = Vector2(16, 16)
 
+[sub_resource type="PackedScene" id="PackedScene_bun23"]
+_bundled = {
+"conn_count": 3,
+"conns": PackedInt32Array(1073741830, 1073741829, 19, 18, 2, 0, 0, 1073741832, 1073741831, 21, 20, 2, 0, 0, 1073741834, 1073741833, 23, 22, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("Generator", "Node2D", "z_index", "scale", "script", "DirectionController", "ConveyorInventory", "Area2D", "script", "CollisionShape2D", "CollisionShape2D", "shape", "ConveyorDetectors", "Timer", "Timer", "wait_time", "one_shot", "autostart", "_on_direction_controller_directions_changed", "directions_changed", "_on_conveyor_detectors_inventory_found", "inventory_found", "_on_timer_timeout", "timeout"),
+"node_count": 6,
+"node_paths": [NodePath("."), NodePath("."), NodePath("./ConveyorInventory"), NodePath("."), NodePath("."), NodePath("."), NodePath("DirectionController"), NodePath("."), NodePath("ConveyorDetectors"), NodePath("."), NodePath("Timer")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 3, 2, 0, 3, 1, 4, 2, 0, 1073741824, 0, 2147483647, 5, 3, 0, 0, 1073741825, 0, 7, 6, -1, 1, 8, 4, 0, 1073741826, 0, 10, 9, -1, 1, 11, 5, 0, 1073741827, 0, 2147483647, 12, 6, 0, 0, 1073741828, 0, 14, 13, -1, 3, 15, 7, 16, 8, 17, 9, 0),
+"variants": [-10, Vector2(2, 2), SubResource("PackedScene_6tx0c"), ExtResource("9_ydbc3"), SubResource("RectangleShape2D_te7xo"), 0.2, true, true],
+"version": 3
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lanr3"]
 size = Vector2(16, 16)
 
-
+[sub_resource type="PackedScene" id="PackedScene_mnkyj"]
+_bundled = {
+"conn_count": 1,
+"conns": PackedInt32Array(1073741828, 1073741827, 11, 10, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("Trash", "Node2D", "scale", "script", "ConveyorInventory", "CollisionShape2D", "CollisionShape2D", "shape", "DirectionController", "position", "_on_conveyor_inventory_item_held", "item_held"),
+"node_count": 4,
+"node_paths": [NodePath("."), NodePath("./ConveyorInventory"), NodePath("."), NodePath("."), NodePath("ConveyorInventory")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 2, 2, 0, 3, 1, 0, 1073741824, 0, 2147483647, 4, 2, 0, 0, 1073741825, 0, 6, 5, -1, 1, 7, 3, 0, 1073741826, 0, 2147483647, 8, 4, 1, 9, 5, 0),
+"variants": [Vector2(2, 2), ExtResource("12_d7dfr"), SubResource("RectangleShape2D_lanr3"), SubResource("PackedScene_6tx0c"), Vector2(742.502, 113.832)],
+"version": 3
+}
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6tx0c"]
+texture = ExtResource("16_cvq6i")
 0:0/animation_columns = 4
 0:0/animation_speed = 7.5
 0:0/animation_frame_0/duration = 1.0
@@ -194,6 +371,7 @@ theme_override_constants/separation = 15
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 script = ExtResource("8_f5c0m")
+to_build = SubResource("PackedScene_rp4qs")
 
 [node name="Sprite2D" type="Sprite2D" parent="UI/Selection/HBoxContainer/Selection_btn"]
 position = Vector2(64, 64)
@@ -206,6 +384,7 @@ visible = false
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 script = ExtResource("8_f5c0m")
+to_build = SubResource("PackedScene_bun23")
 
 [node name="Sprite2D" type="Sprite2D" parent="UI/Selection/HBoxContainer/Selection_btn2"]
 position = Vector2(64, 64)
@@ -217,6 +396,7 @@ visible = false
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 script = ExtResource("8_f5c0m")
+to_build = SubResource("PackedScene_mnkyj")
 
 [node name="Sprite2D" type="Sprite2D" parent="UI/Selection/HBoxContainer/Selection_btn3"]
 position = Vector2(64, 64)

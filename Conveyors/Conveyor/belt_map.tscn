@@ -118,6 +118,8 @@ custom_data_layer_0/name = "type"
 custom_data_layer_0/type = 4
 custom_data_layer_1/name = "dir"
 custom_data_layer_1/type = 6
+custom_data_layer_2/name = "incoming"
+custom_data_layer_2/type = 6
 sources/6 = SubResource("TileSetAtlasSource_qctu1")
 
 [node name="BeltMap" type="TileMap"]

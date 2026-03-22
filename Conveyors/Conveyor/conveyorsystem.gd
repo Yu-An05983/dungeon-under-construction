@@ -1,73 +1,113 @@
 extends Node2D
 
-@onready var path: Path2D = $Path2D
 @onready var tilemap: TileMap = $"../BeltMap"
+@export var move_interval := 0.3
+var tile_items: Dictionary = {}
+var moving_items: Array = []  # {sprite, from_pos, to_pos, progress}
+var timer := 0.0
 
-@export var speed := 150.0        
-@export var item_spacing := 40.0  
+func tick():
+	var ordered = get_tiles_ordered()
+	for tile in ordered:
+		if not tile in tile_items:
+			continue
 
-var items: Array = []
+		# Skip if this item is still mid-movement
+		var item = tile_items[tile]
+		if item.get("moving", false):
+			continue
 
-func _generate_path_from_tiles(start_tile: Vector2i):
-	var curve = Curve2D.new()
-	var current_tile = start_tile
-	var visited = [] 
-	var map_scale = tilemap.scale.x
+		var data: TileData = tilemap.get_cell_tile_data(0, tile)
+		if not data:
+			continue
+		var dir = Vector2i(data.get_custom_data("dir"))
+		if dir == Vector2i.ZERO:
+			continue
+		var next_tile = tile + dir
+		if is_conveyor(next_tile) and not next_tile in tile_items:
+			var next_data: TileData = tilemap.get_cell_tile_data(0, next_tile)
+			if next_data:
+				var next_incoming = Vector2i(next_data.get_custom_data("incoming"))
+				if next_incoming != Vector2i.ZERO and next_incoming != dir:
+					continue
+			move_item(tile, next_tile)
 
-	while is_conveyor(current_tile) and not current_tile in visited:
-		visited.append(current_tile)
-		var pos = tilemap.map_to_local(current_tile) * map_scale
-		curve.add_point(pos)
-		var data = tilemap.get_cell_tile_data(0, current_tile)
-		if not data: break
-		var raw_dir = data.get_custom_data("dir")
-		var dir = Vector2i(raw_dir) if raw_dir != null else Vector2i.ZERO
-		if dir == Vector2i.ZERO: break
-		current_tile += dir
-		
-	path.curve = curve
+func move_item(from: Vector2i, to: Vector2i):
+	var item = tile_items[from]
+	tile_items.erase(from)
+	tile_items[to] = item
+	item["moving"] = true  # Mark as mid-movement
+
+	var from_pos = tilemap.to_global(tilemap.map_to_local(from))
+	var to_pos = tilemap.to_global(tilemap.map_to_local(to))
+	moving_items.append({
+		"sprite": item["sprite"],
+		"from_pos": from_pos,
+		"to_pos": to_pos,
+		"progress": 0.0,
+		"item": item  # Reference back to clear moving flag
+	})
 
 func _process(delta):
-	var path_length = path.curve.get_baked_length()
-	if path_length <= 0: return
-	for i in range(items.size()):
-		var item = items[i]
-		var can_move = true
-		if i == 0:
-			if item.follower.progress >= path_length:
-				can_move = false
-		else:
-			var leader = items[i-1]
-			if item.follower.progress + (speed * delta) > leader.follower.progress - item_spacing:
-				can_move = false
-				item.follower.progress = leader.follower.progress - item_spacing
-		if can_move:
-			item.follower.progress += speed * delta
-		item.follower.progress = clamp(item.follower.progress, 0, path_length)
+	var finished = []
+	for entry in moving_items:
+		entry["progress"] = min(entry["progress"] + delta / move_interval, 1.0)
+		entry["sprite"].global_position = entry["from_pos"].lerp(entry["to_pos"], entry["progress"])
+		if entry["progress"] >= 1.0:
+			entry["item"]["moving"] = false  # Allow item to move again
+			finished.append(entry)
 
-func spawn_item(texture: Texture2D) -> bool:
-	if path.curve.get_baked_length() < 10: return false
-	if items.size() > 0:
-		if items[-1].follower.progress < item_spacing:
-			return false 
+	for f in finished:
+		moving_items.erase(f)
 
-	var follower = PathFollow2D.new()
-	follower.loop = false
-	follower.rotates = false
-	follower.v_offset = 0.0
-	follower.h_offset = 2.0
-	path.add_child(follower)
+	timer += delta
+	if timer >= move_interval:
+		timer = 0.0
+		tick()
+
+func get_tiles_ordered() -> Array:
+	var all_tiles = tilemap.get_used_cells(0)
+	var conveyor_tiles = []
+	for tile in all_tiles:
+		if is_conveyor(tile):
+			conveyor_tiles.append(tile)
+	conveyor_tiles.sort_custom(func(a, b):
+		var a_data: TileData = tilemap.get_cell_tile_data(0, a)
+		var b_data: TileData = tilemap.get_cell_tile_data(0, b)
+		if not a_data or not b_data:
+			return false
+		var a_next = a + Vector2i(a_data.get_custom_data("dir"))
+		var b_next = b + Vector2i(b_data.get_custom_data("dir"))
+		var a_is_end = not is_conveyor(a_next)
+		var b_is_end = not is_conveyor(b_next)
+		if a_is_end != b_is_end:
+			return a_is_end
+		return false
+	)
+	return conveyor_tiles
+
+func spawn_item(tile: Vector2i, texture: Texture2D) -> bool:
+	if tile_items.has(tile):
+		return false
+	if not is_conveyor(tile):
+		return false
 	var sprite = Sprite2D.new()
 	sprite.texture = texture
-	sprite.scale = Vector2(3.0, 3.0) 
-	
-	sprite.centered = true
-	sprite.offset = Vector2.ZERO 
-	
-	follower.add_child(sprite)
-	items.append({"follower": follower})
+	sprite.scale = Vector2(3.0, 3.0)
+	sprite.z_index = 1
+	get_tree().current_scene.add_child(sprite)
+	sprite.global_position = tilemap.to_global(tilemap.map_to_local(tile))
+	tile_items[tile] = {"sprite": sprite, "texture": texture}
 	return true
 
+func remove_item(tile: Vector2i):
+	if tile in tile_items:
+		tile_items[tile]["sprite"].queue_free()
+		tile_items.erase(tile)
+
+func on_tile_removed(tile: Vector2i):
+	remove_item(tile)
+
 func is_conveyor(tile: Vector2i) -> bool:
-	var data := tilemap.get_cell_tile_data(0, tile) 
+	var data: TileData = tilemap.get_cell_tile_data(0, tile)
 	return data != null and data.get_custom_data("type") == "conveyor"

@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var conveyor_system: Node = $"../ConveyorSystem"
 @onready var tilemap: TileMap = $"../BeltMap"
-
 @export var spawn_interval := 1.0
 @export var item_texture := preload("res://Art/Resources/lithos.png")
 
@@ -14,16 +13,24 @@ func _ready():
 	setup_conveyor_path()
 
 func setup_conveyor_path():
-	var my_tile = tilemap.local_to_map(global_position / tilemap.scale.x)
-	
+	var my_tile = tilemap.local_to_map(tilemap.to_local(global_position))
+	var found = false
 	for dir in directions:
 		var target_tile = my_tile + dir
 		if conveyor_system.is_conveyor(target_tile):
-			conveyor_system._generate_path_from_tiles(target_tile)
-			return
+			found = true
+			break
+	if not found:
+		push_warning("Spawner at %s found no adjacent conveyor tile" % global_position)
 
 func _process(delta):
 	timer += delta
 	if timer >= spawn_interval:
-		if conveyor_system.spawn_item(item_texture):
-			timer = 0.0
+		timer = 0.0
+		var my_tile = tilemap.local_to_map(tilemap.to_local(global_position))
+		# Find adjacent conveyor tile to spawn onto
+		for dir in directions:
+			var target = my_tile + dir
+			if conveyor_system.is_conveyor(target):
+				conveyor_system.spawn_item(target, item_texture)
+				break

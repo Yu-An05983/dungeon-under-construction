@@ -1,24 +1,52 @@
-[gd_scene load_steps=13 format=3 uid="uid://cpna3aw2gujtj"]
+[gd_scene load_steps=14 format=3 uid="uid://cpna3aw2gujtj"]
 
-[ext_resource type="Texture2D" uid="uid://byaa32kn30t70" path="res://Art/Conveyors/conveyors_1.png" id="6_7mycd"]
 [ext_resource type="Script" uid="uid://ddfha0xv88brh" path="res://UI/selection_btn.gd" id="6_272bh"]
-[ext_resource type="PackedScene" uid="uid://plarxj2333q7" path="res://Building/buildable_conveyor.tscn" id="6_kek77"]
+[ext_resource type="Texture2D" uid="uid://6smhsjwy1nyx" path="res://icon.svg" id="6_dg77c"]
 [ext_resource type="PackedScene" uid="uid://desq3t7ol8ylt" path="res://player.tscn" id="7_272bh"]
-[ext_resource type="PackedScene" uid="uid://c8w1w0squsynp" path="res://Conveyors/buildablegenerator.tscn" id="8_4c57u"]
 [ext_resource type="Script" uid="uid://chumhqvd02kqf" path="res://camera_2d.gd" id="8_5vw27"]
+[ext_resource type="Texture2D" uid="uid://blcwd4xhp4gvf" path="res://Art/Conveyors/Straight conveyor.png" id="8_ycdy4"]
 [ext_resource type="Texture2D" uid="uid://bl8bhfger7ntd" path="res://Art/Resources/item give.png" id="9_efxa6"]
 [ext_resource type="Texture2D" uid="uid://bj1k3b5s13fd3" path="res://Art/Resources/item delete.png" id="10_dg77c"]
 [ext_resource type="Script" uid="uid://cadi08x7agyhn" path="res://Conveyors/Conveyor/conveyorsystem.gd" id="10_efxa6"]
-[ext_resource type="PackedScene" uid="uid://uqjnxa32vr20" path="res://Conveyors/buildabletrash.tscn" id="10_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://blmiq16wnkx2i" path="res://Conveyors/Conveyor/belt_map.tscn" id="11_efxa6"]
+[ext_resource type="Texture2D" uid="uid://kop1pknflp1b" path="res://Art/Resources/gold.png" id="11_w48qg"]
 [ext_resource type="Script" uid="uid://b113u7nmsgijn" path="res://Conveyors/Conveyor/spawner.gd" id="12_dg77c"]
+[ext_resource type="FontFile" uid="uid://dnwe30ygvd7s7" path="res://xolonium/xolonium-fonts-4.1/otf/Xolonium-Regular.otf" id="12_vivmo"]
+[ext_resource type="Texture2D" uid="uid://brxgh7eduxei1" path="res://Art/icon.svg" id="13_ycdy4"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node"]
+
+[node name="Player" parent="." instance=ExtResource("7_272bh")]
+z_index = 33
+position = Vector2(573, 323)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+script = ExtResource("8_5vw27")
+
+[node name="ConveyorSystem" type="Node2D" parent="."]
+script = ExtResource("10_efxa6")
+
+[node name="BeltMap" parent="." instance=ExtResource("11_efxa6")]
+z_index = -47
+layer_0/tile_data = PackedInt32Array(65533, 6, 9, 65534, 6, 9, 65535, 6, 9, 0, 6, 9, 1, 6, 9, 2, 6, 9)
+
+[node name="floor(to be replaced)" type="Sprite2D" parent="."]
+position = Vector2(1225, 373)
+scale = Vector2(5.64844, 5.64844)
+texture = ExtResource("6_dg77c")
+
+[node name="Spawner" type="Node2D" parent="."]
 texture_filter = 1
+position = Vector2(-219, 32)
+script = ExtResource("12_dg77c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Spawner"]
+scale = Vector2(0.36, 0.36)
+texture = ExtResource("13_ycdy4")
+metadata/_edit_lock_ = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
-visible = false
 
 [node name="Selection" type="Panel" parent="UI"]
 anchors_preset = 7
@@ -48,20 +76,18 @@ theme_override_constants/separation = 15
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 script = ExtResource("6_272bh")
-to_build = ExtResource("6_kek77")
 
 [node name="Sprite2D" type="Sprite2D" parent="UI/Selection/HBoxContainer/Selection_btn"]
 position = Vector2(64, 64)
-scale = Vector2(3, 3)
-texture = ExtResource("6_7mycd")
-hframes = 5
-vframes = 3
+scale = Vector2(7.875, 7.875)
+texture = ExtResource("8_ycdy4")
+hframes = 4
 
 [node name="Selection_btn2" type="Button" parent="UI/Selection/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 script = ExtResource("6_272bh")
-to_build = ExtResource("8_4c57u")
 
 [node name="Sprite2D" type="Sprite2D" parent="UI/Selection/HBoxContainer/Selection_btn2"]
 position = Vector2(64, 64)
@@ -69,36 +95,43 @@ scale = Vector2(3, 3)
 texture = ExtResource("9_efxa6")
 
 [node name="Selection_btn3" type="Button" parent="UI/Selection/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 script = ExtResource("6_272bh")
-to_build = ExtResource("10_ycdy4")
 
 [node name="Sprite2D" type="Sprite2D" parent="UI/Selection/HBoxContainer/Selection_btn3"]
 position = Vector2(64, 64)
 scale = Vector2(3, 3)
 texture = ExtResource("10_dg77c")
 
-[node name="Player" parent="." instance=ExtResource("7_272bh")]
-z_index = 9
-position = Vector2(166, -230)
+[node name="Resources" type="Panel" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -288.0
+offset_right = 288.0
+offset_bottom = 64.0
+grow_horizontal = 2
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(3, 3)
-script = ExtResource("8_5vw27")
+[node name="Materials" type="HBoxContainer" parent="UI/Resources"]
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 64.0
 
-[node name="ConveyorSystem" type="Node2D" parent="."]
-script = ExtResource("10_efxa6")
+[node name="Resource1" type="HBoxContainer" parent="UI/Resources/Materials"]
+layout_mode = 2
 
-[node name="Path2D" type="Path2D" parent="ConveyorSystem"]
+[node name="Resourceimg" type="TextureRect" parent="UI/Resources/Materials/Resource1"]
+layout_mode = 2
+texture = ExtResource("11_w48qg")
+expand_mode = 2
 
-[node name="Spawner" type="Node2D" parent="."]
-position = Vector2(-207, 39)
-script = ExtResource("12_dg77c")
-
-[node name="BeltMap" parent="." instance=ExtResource("11_efxa6")]
-z_index = -22
-layer_0/tile_data = PackedInt32Array(65533, 6, 9, 65534, 6, 9, 65535, 6, 9, 0, 6, 9, 1, 6, 9, 2, 6, 9)
+[node name="Resource" type="Label" parent="UI/Resources/Materials/Resource1"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_vivmo")
+theme_override_font_sizes/font_size = 45
+text = "67"
 
 [connection signal="pressed" from="UI/Selection/HBoxContainer/Selection_btn" to="UI/Selection/HBoxContainer/Selection_btn" method="_on_pressed"]
 [connection signal="pressed" from="UI/Selection/HBoxContainer/Selection_btn2" to="UI/Selection/HBoxContainer/Selection_btn2" method="_on_pressed"]
