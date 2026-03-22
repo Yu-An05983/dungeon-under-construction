@@ -1,14 +1,11 @@
-[gd_scene load_steps=30 format=3 uid="uid://qfkt25nhf3dw"]
+[gd_scene load_steps=16 format=3 uid="uid://qfkt25nhf3dw"]
 
 [ext_resource type="Texture2D" uid="uid://6smhsjwy1nyx" path="res://icon.svg" id="1_bcbcq"]
 [ext_resource type="PackedScene" uid="uid://desq3t7ol8ylt" path="res://player.tscn" id="2_js7pq"]
 [ext_resource type="Script" uid="uid://chumhqvd02kqf" path="res://camera_2d.gd" id="3_eu7l1"]
-[ext_resource type="PackedScene" uid="uid://cltpvpyouk2u0" path="res://Conveyors/Components/Controller/conveyor_sprite_controller.tscn" id="6_5j71u"]
 [ext_resource type="Texture2D" uid="uid://blcwd4xhp4gvf" path="res://Art/Conveyors/Straight conveyor.png" id="6_sjtuv"]
 [ext_resource type="Script" uid="uid://ddfha0xv88brh" path="res://UI/selection_btn.gd" id="8_f5c0m"]
-[ext_resource type="Script" uid="uid://chdc6o32nka6n" path="res://Conveyors/Components/Inventory/conveyor_inventory.gd" id="9_ydbc3"]
 [ext_resource type="Texture2D" uid="uid://bl8bhfger7ntd" path="res://Art/Resources/item give.png" id="12_6w02q"]
-[ext_resource type="PackedScene" uid="uid://des4s18nx8jee" path="res://Conveyors/Components/Inventory/conveyor_inventory.tscn" id="12_d7dfr"]
 [ext_resource type="Script" uid="uid://cadi08x7agyhn" path="res://Conveyors/Conveyor/conveyorsystem.gd" id="13_6w02q"]
 [ext_resource type="Texture2D" uid="uid://bj1k3b5s13fd3" path="res://Art/Resources/item delete.png" id="13_b2ar6"]
 [ext_resource type="Script" uid="uid://b113u7nmsgijn" path="res://Conveyors/Conveyor/spawner.gd" id="14_1fphk"]
@@ -16,128 +13,41 @@
 [ext_resource type="Texture2D" uid="uid://kop1pknflp1b" path="res://Art/Resources/gold.png" id="15_gn8l5"]
 [ext_resource type="PackedScene" uid="uid://blmiq16wnkx2i" path="res://Conveyors/Conveyor/belt_map.tscn" id="15_sjtuv"]
 [ext_resource type="FontFile" uid="uid://dnwe30ygvd7s7" path="res://xolonium/xolonium-fonts-4.1/otf/Xolonium-Regular.otf" id="16_6w02q"]
-[ext_resource type="Texture2D" uid="uid://b6cyk57eg8syv" path="res://Art/Conveyors/ConveyorSheet.png" id="16_cvq6i"]
-
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8fe2s"]
-size = Vector2(16, 16)
-
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_te7xo"]
-size = Vector2(16, 16)
-
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lanr3"]
-size = Vector2(16, 16)
-
-
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6tx0c"]
-0:0/animation_columns = 4
-0:0/animation_speed = 7.5
-0:0/animation_frame_0/duration = 1.0
-0:0/animation_frame_1/duration = 1.0
-0:0/animation_frame_2/duration = 1.0
-0:0/animation_frame_3/duration = 1.0
 0:0/0 = 0
 0:0/0/custom_data_0 = "conveyor"
 0:0/0/custom_data_1 = Vector2i(1, 0)
-0:1/animation_columns = 4
-0:1/animation_speed = 7.5
-0:1/animation_frame_0/duration = 1.0
-0:1/animation_frame_1/duration = 1.0
-0:1/animation_frame_2/duration = 1.0
-0:1/animation_frame_3/duration = 1.0
 0:1/0 = 0
 0:1/0/custom_data_0 = "conveyor"
 0:1/0/custom_data_1 = Vector2i(0, 1)
-0:2/animation_columns = 4
-0:2/animation_speed = 7.5
-0:2/animation_frame_0/duration = 1.0
-0:2/animation_frame_1/duration = 1.0
-0:2/animation_frame_2/duration = 1.0
-0:2/animation_frame_3/duration = 1.0
 0:2/0 = 0
 0:2/0/custom_data_0 = "conveyor"
 0:2/0/custom_data_1 = Vector2i(-1, 0)
-0:3/animation_columns = 4
-0:3/animation_speed = 7.5
-0:3/animation_frame_0/duration = 1.0
-0:3/animation_frame_1/duration = 1.0
-0:3/animation_frame_2/duration = 1.0
-0:3/animation_frame_3/duration = 1.0
 0:3/0 = 0
 0:3/0/custom_data_0 = "conveyor"
 0:3/0/custom_data_1 = Vector2i(0, -1)
-0:4/animation_columns = 4
-0:4/animation_speed = 7.5
-0:4/animation_frame_0/duration = 1.0
-0:4/animation_frame_1/duration = 1.0
-0:4/animation_frame_2/duration = 1.0
-0:4/animation_frame_3/duration = 1.0
 0:4/0 = 0
 0:4/0/custom_data_0 = "conveyor"
 0:4/0/custom_data_1 = Vector2i(0, 1)
-0:5/animation_columns = 4
-0:5/animation_speed = 7.5
-0:5/animation_frame_0/duration = 1.0
-0:5/animation_frame_1/duration = 1.0
-0:5/animation_frame_2/duration = 1.0
-0:5/animation_frame_3/duration = 1.0
 0:5/0 = 0
 0:5/0/custom_data_0 = "conveyor"
 0:5/0/custom_data_1 = Vector2i(1, 0)
-0:6/animation_columns = 4
-0:6/animation_speed = 7.5
-0:6/animation_frame_0/duration = 1.0
-0:6/animation_frame_1/duration = 1.0
-0:6/animation_frame_2/duration = 1.0
-0:6/animation_frame_3/duration = 1.0
 0:6/0 = 0
 0:6/0/custom_data_0 = "conveyor"
 0:6/0/custom_data_1 = Vector2i(0, -1)
-0:7/animation_columns = 4
-0:7/animation_speed = 7.5
-0:7/animation_frame_0/duration = 1.0
-0:7/animation_frame_1/duration = 1.0
-0:7/animation_frame_2/duration = 1.0
-0:7/animation_frame_3/duration = 1.0
 0:7/0 = 0
 0:7/0/custom_data_0 = "conveyor"
 0:7/0/custom_data_1 = Vector2i(-1, 0)
-0:8/animation_columns = 4
-0:8/animation_speed = 7.5
-0:8/animation_frame_0/duration = 1.0
-0:8/animation_frame_1/duration = 1.0
-0:8/animation_frame_2/duration = 1.0
-0:8/animation_frame_3/duration = 1.0
 0:8/0 = 0
 0:8/0/custom_data_0 = "conveyor"
 0:8/0/custom_data_1 = Vector2i(0, -1)
-0:9/animation_columns = 4
-0:9/animation_speed = 7.5
-0:9/animation_frame_0/duration = 1.0
-0:9/animation_frame_1/duration = 1.0
-0:9/animation_frame_2/duration = 1.0
-0:9/animation_frame_3/duration = 1.0
 0:9/0 = 0
 0:9/0/custom_data_0 = "conveyor"
 0:9/0/custom_data_1 = Vector2i(1, 0)
-0:10/animation_columns = 4
-0:10/animation_speed = 7.5
-0:10/animation_frame_0/duration = 1.0
-0:10/animation_frame_1/duration = 1.0
-0:10/animation_frame_2/duration = 1.0
-0:10/animation_frame_3/duration = 1.0
 0:10/0 = 0
 0:10/0/custom_data_0 = "conveyor"
 0:10/0/custom_data_1 = Vector2i(0, 1)
-0:11/animation_columns = 4
-0:11/animation_speed = 7.5
-0:11/animation_frame_0/duration = 1.0
-0:11/animation_frame_1/duration = 1.0
-0:11/animation_frame_2/duration = 1.0
-0:11/animation_frame_3/duration = 1.0
 0:11/0 = 0
 0:11/0/custom_data_0 = "conveyor"
 0:11/0/custom_data_1 = Vector2i(-1, 0)

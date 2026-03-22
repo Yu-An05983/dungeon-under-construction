@@ -28,7 +28,7 @@ func _process(delta):
 	if timer >= spawn_interval:
 		timer = 0.0
 		var my_tile = tilemap.local_to_map(tilemap.to_local(global_position))
-		# Find adjacent conveyor tile to spawn onto
+		#Find adjacent conveyor tile
 		for dir in directions:
 			var target = my_tile + dir
 			if conveyor_system.is_conveyor(target):

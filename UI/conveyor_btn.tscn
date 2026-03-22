@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dp755ev5vmmok"]
+[gd_scene load_steps=18 format=3 uid="uid://c6gxhw01bhj3q"]
 
 [ext_resource type="Script" uid="uid://ddfha0xv88brh" path="res://UI/selection_btn.gd" id="1_ax3ql"]
 [ext_resource type="Texture2D" uid="uid://blcwd4xhp4gvf" path="res://Art/Conveyors/Straight conveyor.png" id="2_e2tvq"]
